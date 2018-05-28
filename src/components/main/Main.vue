@@ -114,8 +114,8 @@
                           <a href="" class="fansname">{{fans.name}}</a>
                           <div class="followUsers_right">
                             <a class="number">{{fans.amount}}</a>
-                            <span class="fans_concern" v-on:click="open"><i class="el-icon-circle-plus"></i></span>
-                            <span class="fans_collect" @click="open1"><i class="el-icon-star-off"></i></span>
+                            <span class="fans_concern" v-on:click="open(index)"><i class="el-icon-circle-plus" v-show="fans.isShow"></i></span>
+                            <span class="fans_collect" @click="open1(index)"><i :class="fans.data?'el-icon-star-on':'el-icon-star-off'"></i></span>
                           </div>
                           <div class="clearfix"></div>
                         </li>
@@ -208,13 +208,15 @@ export default {
         {bannerIMG:bannerIMG5}
       ],
       firends:[
-        {name:'老男孩',amount:'1460',fanIMG:fans},
-        {name:'老鼠爱大米',amount:'15',fanIMG:fans},
-        {name:'你是我今生的最爱',amount:'50',fanIMG:fans},
-        {name:'那个什么桃',amount:'12',fanIMG:fans}
+        {name:'老男孩',amount:'1460',fanIMG:fans,isShow:true,data:false},
+        {name:'老鼠爱大米',amount:'15',fanIMG:fans,isShow:true,data:false},
+        {name:'你是我今生的最爱',amount:'50',fanIMG:fans,isShow:true,data:false},
+        {name:'那个什么桃',amount:'12',fanIMG:fans,isShow:true,data:false}
       ],
       avatar:avatar,
+      divindex:-1,
       scroll:''
+      
     }
   },
   methods:{
@@ -223,13 +225,13 @@ export default {
         //在vue中操作dom尽量用ref,  但它不是响应式的
         var srollTop=window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
         if(srollTop>20){
-          console.log(this.$children);
+          // console.log(this.$children);
           // this.$refs.el_header.css('background','rgba(0,0,0,0.5)');
         }
      // })
-      
     },
-    open() {
+    // 关注
+    open(index) {
         this.$confirm('你要关注我吗?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -239,6 +241,7 @@ export default {
             type: 'success',
             message: '关注成功!'
           });
+        this.firends[index].isShow =  !this.firends[index].isShow;
         }).catch(() => {
           this.$message({
             type: 'info',
@@ -246,20 +249,25 @@ export default {
           });          
         });
       },
-      open1() {
-        this.$message({
-              type: 'warning',
-              message: `action: ${ action }`
-            });
-      }
+    // 收藏
+    open1(index) {
+        this.firends[index].data =  !this.firends[index].data;
+        if(this.firends[index].data){
+          this.$message({message:'收藏成功！',type: 'success'});
+        } 
+        if(!this.firends[index].data){
+          this.$message({message:'取消收藏！',type: 'warning'});
+        }
+         }
   },
 
 
   mounted: function () {
       window.addEventListener('scroll', this.paperScroll);
-  }
-   
+  },
+
 }
+   
 </script>
 
 <style scoped>

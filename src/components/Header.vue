@@ -32,6 +32,10 @@
                 <i class="el-icon-menu"></i>五味陈杂
                 <!-- <router-link to="/taster">五味陈杂</router-link> -->
               </el-menu-item>
+              <el-menu-item index="/" key="login">
+                <i class="el-icon-menu"></i>登录
+                <!-- <router-link to="/taster">五味陈杂</router-link> -->
+              </el-menu-item>
           </el-menu>
       </div>
     </el-header>

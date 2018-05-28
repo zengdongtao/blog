@@ -126,11 +126,14 @@ export default {
  .el-form-item__label{
     text-align: left;
   }
-  #app .demo-ruleForm{
+  .bg{
     max-width: 500px;
-    margin: 176px auto;
+    height: 946px;
+    margin:0 auto;
+  }
+  #app .demo-ruleForm{
     border-radius: 4px;
-    padding: 30px;
+    padding-top: 100px;
   }
   .el-form-item__content{
     text-align: center;
